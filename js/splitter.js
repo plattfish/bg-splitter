@@ -39,7 +39,6 @@ angular.module('bgDirectives', [])
             } else {
               pos = scope.position - bounds.top;
             }
-            console.log('refreshVertical pos: ', pos);
             if (pos < pane1Min) return;
             if (height - pos < pane2Min) return;
             handler.css('top', pos + 'px');
@@ -79,7 +78,6 @@ angular.module('bgDirectives', [])
                 }
               } else if (pane1.visible) {
                 // first is visible
-                console.log('### show only first');
                 pane1.elem.removeClass('hide');
                 pane2.elem.addClass('hide');
                 if (vertical) {
@@ -90,7 +88,6 @@ angular.module('bgDirectives', [])
                 }
               } else if (pane2.visible) {
                 // second is visible
-                console.log('### show only second');
                 pane2.elem.removeClass('hide');
                 pane1.elem.addClass('hide');
                 if (vertical) {
@@ -128,9 +125,10 @@ angular.module('bgDirectives', [])
           });
 
           scope.$on('PANE_VISIBILITY', function () {
-            console.log('VISIBILITY HAS CHANGED');
             refresh();
           });
+
+          window.addEventListener('resize', refresh);
         }
       };
     })
